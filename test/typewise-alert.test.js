@@ -65,6 +65,52 @@ describe("classifyTemperatureBreach", () => {
 
 });
 
-describe("checkAndAlert", () => {
+describe("sendToController", () => {
+  it('sendToController with breach type with value TOO_LOW', () => {
+    const breachType = 'TOO_LOW';
+    alerts.sendToController(breachType);
+    expect( console.log.calledOnce ).to.be.true;
+    expect( console.log.calledWith('65261, TOO_LOW') ).to.be.true;
+  });
+})
 
+describe("sendToEmail", () => {
+  it('sendToMail with TOO_LOW', () => {
+    const breachType = 'TOO_LOW';
+    alerts.sendToEmail(breachType);
+    expect( console.log.calledWith('To: a.b@c.com') ).to.be.true;
+    expect( console.log.calledWith('Hi, the temperature is too low') ).to.be.true;
+  });
+
+  it('sendToMail with TOO_HIGH', () => {
+    const breachType = 'TOO_HIGH';
+    alerts.sendToEmail(breachType);
+    expect(console.log.calledWith('To: a.b@c.com') ).to.be.true;
+    expect(console.log.calledWith('Hi, the temperature is too high')).to.be.true;
+  });
+})
+
+describe("checkAndAlert", () => {
+  it('checkAndAlert  with TO_CONTROLLER', () => {
+    const mockAlertTarget = 'TO_CONTROLLER';
+    const mockTemperatureInc = 30;
+    const mockBatteryChar = {
+      coolingType: 'PASSIVE_COOLING',
+    };
+    alerts.checkAndAlert(mockAlertTarget, mockBatteryChar, mockTemperatureInc);
+    expect( console.log.calledWith('65261, NORMAL') ).to.be.true;
+  });
+
+  it('checkAndAlert with TO_EMAIL', () => {
+    const mockAtype = 'TO_EMAIL';
+    const mockTempInc2 = 50;
+    const mockBatChar2 = {
+      coolingType: 'HI_ACTIVE_COOLING',
+    };
+    const logMessage = 'To: a.b@c.com';
+    const logMessage2 = 'Hi, the temperature is too high';
+    alerts.checkAndAlert( mockAtype, mockBatChar2, mockTempInc2);
+    expect( console.log.calledWith(logMessage) ).to.be.true;
+    expect( console.log.calledWith(logMessage2)).to.be.true;
+  });
 })
