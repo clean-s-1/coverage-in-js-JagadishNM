@@ -1,6 +1,6 @@
 const alerts = require('../typewise-alert');
 const {expect} = require('chai');
-
+const sinon = require('sinon');
 
 describe("inferBreach", () => {
 
