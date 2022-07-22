@@ -108,14 +108,6 @@ describe("sendToController", () => {
 })
 
 describe("sendToEmail", () => {
-  beforeEach(function() {
-    if (null == this.sinon) {
-      this.sinon = sinon.createSandbox();
-    } else {
-      this.sinon.restore();
-    }
-    this.sinon.stub(console, 'log');
-  });
   it('sendToMail with TOO_LOW', () => {
     const breachType = 'TOO_LOW';
     alerts.sendToEmail(breachType);
@@ -132,14 +124,6 @@ describe("sendToEmail", () => {
 })
 
 describe("checkAndAlert", () => {
-  beforeEach(function() {
-    if (null == this.sinon) {
-      this.sinon = sinon.createSandbox();
-    } else {
-      this.sinon.restore();
-    }
-    this.sinon.stub(console, 'log');
-  });
   it('checkAndAlert  with TO_CONTROLLER', () => {
     const mockAlertTarget = 'TO_CONTROLLER';
     const mockTemperatureInc = 30;
