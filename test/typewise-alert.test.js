@@ -100,9 +100,7 @@ describe("sendToEmail", () => {
     expect(console.log.calledWith('To: a.b@c.com') ).to.be.true;
     expect(console.log.calledWith('Hi, the temperature is too high')).to.be.true;
   });
-})
 
-describe("checkAndAlert", () => {
   it('checkAndAlert  with TO_CONTROLLER', () => {
     const mockAlertTarget = 'TO_CONTROLLER';
     const mockTemperatureInc = 30;
