@@ -1,6 +1,5 @@
 const alerts = require('../typewise-alert');
 const {expect} = require('chai');
-const sinon = require('sinon');
 
 
 describe("inferBreach", () => {
@@ -20,70 +19,49 @@ it('infers a value within the range as NORMAL', () => {
 })
 
 describe("classifyTemperatureBreach", () => {
-    it('classify temperature breach with PASSIVE COOLING type with value 0', () => {
-    expect(alerts.classifyTemperatureBreach('PASSIVE_COOLING', 0)).equals(
-        'TOO_LOW',
-    );
+  it("Classify temperature breach with PASSIVE_COOLING type to return TOO_LOW for a value lower than the minimum", () => {
+    expect(alerts.classifyTemperatureBreach('PASSIVE_COOLING', -20))
+    .equals("TOO_LOW");
   });
 
-  it('classify temperature breach with PASSIVE COOLING type with value -1', () => {
-    expect(alerts.classifyTemperatureBreach('PASSIVE_COOLING', -1)).equals(
-        'TOO_LOW',
-    );
+  it("Classify temperature breach with PASSIVE_COOLING type to return TOO_HIGH for a value lower than the maximum", () => {
+    expect(alerts.classifyTemperatureBreach('PASSIVE_COOLING', 50))
+    .equals("TOO_HIGH");
   });
 
-  it('classify temperature breach with PASSIVE COOLING type with value 20', () => {
-    expect(alerts.classifyTemperatureBreach('PASSIVE_COOLING', 20)).equals(
-        'NORMAL',
-    );
+  it("Classify temperature breach with PASSIVE_COOLING type to return NORMAL for a value between minimum and maximum", () => {
+    expect(alerts.classifyTemperatureBreach('PASSIVE_COOLING', 20))
+    .equals("NORMAL");
   });
 
-  it('classify temperature breach with PASSIVE COOLING type with value 35', () => {
-    expect(alerts.classifyTemperatureBreach('PASSIVE_COOLING', 35)).equals(
-        'TOO_HIGH',
-    );
+  it("Classify temperature breach with HI_ACTIVE_COOLING type to return TOO_LOW for a value lower than the minimum", () => {
+    expect(alerts.classifyTemperatureBreach('HI_ACTIVE_COOLING', -2))
+    .equals("TOO_LOW");
   });
 
-  it('classify temperature breach with PASSIVE COOLING type with value 49', () => {
-    expect(alerts.classifyTemperatureBreach('PASSIVE_COOLING', 40)).equals(
-        'TOO_HIGH',
-    );
+  it("Classify temperature breach with HI_ACTIVE_COOLING type to return TOO_HIGH for a value lower than the maximum", () => {
+    expect(alerts.classifyTemperatureBreach('HI_ACTIVE_COOLING', 48))
+    .equals("TOO_HIGH");
   });
 
-  it('classify temperature breach with HI ACTIVE COOLING type with value -1', () => {
-    expect(alerts.classifyTemperatureBreach('HI_ACTIVE_COOLING', -1)).equals(
-        'TOO_LOW',
-    );
+  it("Classify temperature breach with HI_ACTIVE_COOLING type to return NORMAL for a value between minimum and maximum", () => {
+    expect(alerts.classifyTemperatureBreach('HI_ACTIVE_COOLING', 30))
+    .equals("NORMAL");
   });
 
-  it('classify temperature breach with HI ACTIVE COOLING type with value 20', () => {
-    expect(alerts.classifyTemperatureBreach('HI_ACTIVE_COOLING', 20)).equals(
-        'NORMAL',
-    );
+  it("Classify temperature breach with MED_ACTIVE_COOLING type to return TOO_LOW for a value lower than the minimum", () => {
+    expect(alerts.classifyTemperatureBreach('MED_ACTIVE_COOLING', -5))
+    .equals("TOO_LOW");
   });
 
-  it('classify temperature breach with HI ACTIVE COOLING type with value 50', () => {
-    expect(alerts.classifyTemperatureBreach('HI_ACTIVE_COOLING', 50)).equals(
-        'TOO_HIGH',
-    );
+  it("Classify temperature breach with MED_ACTIVE_COOLING type to return TOO_HIGH for a value lower than the maximum", () => {
+    expect(alerts.classifyTemperatureBreach('MED_ACTIVE_COOLING', 45))
+    .equals("TOO_HIGH");
   });
 
-  it('classify temperature breach with MED ACTIVE COOLING type with value -1', () => {
-    expect(alerts.classifyTemperatureBreach('MED_ACTIVE_COOLING', -1)).equals(
-        'TOO_LOW',
-    );
-  });
-
-  it('classify temperature breach with MED ACTIVE COOLING type with value 20', () => {
-    expect(alerts.classifyTemperatureBreach('MED_ACTIVE_COOLING', 20)).equals(
-        'NORMAL',
-    );
-  });
-
-  it('classify temperature breach with MED ACTIVE COOLING type with value 41', () => {
-    expect(alerts.classifyTemperatureBreach('MED_ACTIVE_COOLING', 41)).equals(
-        'TOO_HIGH',
-    );
+  it("Classify temperature breach with MED_ACTIVE_COOLING type to return NORMAL for a value between minimum and maximum", () => {
+    expect(alerts.classifyTemperatureBreach('MED_ACTIVE_COOLING', 20))
+    .equals("NORMAL");
   });
 
 });
